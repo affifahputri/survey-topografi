@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F8F9FA"
+    android:padding="20dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mode Anchor (Titik Patokan)"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#800020"
+        android:gravity="center"
+        android:layout_marginBottom="4dp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Perangkat ini diam di titik patokan dan memancarkan sinyal BLE ke HP Rover."
+        android:textSize="13sp"
+        android:textColor="#6C757D"
+        android:gravity="center"
+        android:layout_marginBottom="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nama / ID Anchor:"
+        android:textStyle="bold"
+        android:textColor="#212529"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/etAnchorId"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:hint="Contoh: ANCHOR_1"
+        android:text="ANCHOR_1"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Koordinat Patokan (Latitude, Longitude, Altitude):"
+        android:textStyle="bold"
+        android:textColor="#212529"
+        android:layout_marginBottom="4dp" />
+
+    <EditText
+        android:id="@+id/etLatitude"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:hint="Latitude (misal: -6.917500)"
+        android:inputType="numberSigned|numberDecimal"
+        android:padding="12dp"
+        android:layout_marginBottom="10dp" />
+
+    <EditText
+        android:id="@+id/etLongitude"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:hint="Longitude (misal: 107.619100)"
+        android:inputType="numberSigned|numberDecimal"
+        android:padding="12dp"
+        android:layout_marginBottom="10dp" />
+
+    <EditText
+        android:id="@+id/etAltitude"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#FFFFFF"
+        android:hint="Ketinggian / Altitude (mdpl)"
+        android:inputType="numberSigned|numberDecimal"
+        android:padding="12dp"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/btnGetGps"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:backgroundTint="#495057"
+        android:text="Isi Otomatis dari GPS Sekarang"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnStartAdvertising"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:backgroundTint="#800020"
+        android:text="Mulai Siarkan Sinyal (BLE Broadcast)"
+        android:textSize="15sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvBroadcastStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#E9ECEF"
+        android:padding="14dp"
+        android:text="Status Pemancar: Diam (Belum Aktif)"
+        android:textSize="13sp"
+        android:textColor="#212529"
+        android:gravity="center" />
+
+</LinearLayout>
