@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8F9FA"
+    android:padding="16dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mode Rover (Alat Ukur &amp; Trilaterasi)"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:textColor="#800020"
+            android:gravity="center"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Kotak 1: GPS & Ketinggian HP Rover Sendiri -->
+        <TextView
+            android:id="@+id/tvRoverGps"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="12dp"
+            android:text="GPS Rover (Titik 3):\nLatitude: -\nLongitude: -\nKetinggian (z): - mdpl"
+            android:textSize="13sp"
+            android:textColor="#212529"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Tombol Scan BLE -->
+        <Button
+            android:id="@+id/btnScanBle"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:backgroundTint="#800020"
+            android:text="Mulai Scan Sinyal Anchor (BLE)"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Kotak 2: Daftar Anchor yang Tertangkap Bluetooth -->
+        <TextView
+            android:id="@+id/tvDetectedAnchors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#FFFFFF"
+            android:padding="12dp"
+            android:text="Anchor BLE Terdeteksi:\nBelum ada sinyal Anchor..."
+            android:textSize="13sp"
+            android:textColor="#212529"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Input Koordinat Anchor 1 & 2 (Diisi sesuai angka di HP Anchor teman) -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Koordinat Patokan Anchor 1 (Lat, Lon):"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:textColor="#212529" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+            <EditText
+                android:id="@+id/etA1Lat"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:hint="Lat Anchor 1"
+                android:inputType="numberSigned|numberDecimal"
+                android:padding="8dp"
+                android:textSize="13sp"
+                android:layout_marginEnd="6dp" />
+            <EditText
+                android:id="@+id/etA1Lon"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:hint="Lon Anchor 1"
+                android:inputType="numberSigned|numberDecimal"
+                android:padding="8dp"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Koordinat Patokan Anchor 2 (Lat, Lon):"
+            android:textStyle="bold"
+            android:textSize="13sp"
+            android:textColor="#212529" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+            <EditText
+                android:id="@+id/etA2Lat"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:hint="Lat Anchor 2"
+                android:inputType="numberSigned|numberDecimal"
+                android:padding="8dp"
+                android:textSize="13sp"
+                android:layout_marginEnd="6dp" />
+            <EditText
+                android:id="@+id/etA2Lon"
+                android:layout_width="0dp"
+                android:layout_height="46dp"
+                android:layout_weight="1"
+                android:background="#FFFFFF"
+                android:hint="Lon Anchor 2"
+                android:inputType="numberSigned|numberDecimal"
+                android:padding="8dp"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnFillDummyAnchor"
+            android:layout_width="match_parent"
+            android:layout_height="44dp"
+            android:backgroundTint="#6C757D"
+            android:text="Isi Otomatis Koordinat Sekitar (Untuk Tes/Simulasi)"
+            android:textSize="12sp"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Tombol Hitung Trilaterasi -->
+        <Button
+            android:id="@+id/btnCalculateTrilateration"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:backgroundTint="#198754"
+            android:text="Hitung Posisi Trilaterasi (x, y, z)"
+            android:textColor="#FFFFFF"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Kotak 3: Hasil Trilaterasi -->
+        <TextView
+            android:id="@+id/tvTrilaterationResult"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E8F5E9"
+            android:padding="14dp"
+            android:text="Hasil Perhitungan Trilaterasi:\n-"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#1B5E20" />
+
+    </LinearLayout>
+</ScrollView>
