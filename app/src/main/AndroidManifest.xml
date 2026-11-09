@@ -2,11 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- 1. Izin Lokasi / GPS untuk Koordinat & Titik Ketinggian -->
+    <!-- Izin Lokasi & Bluetooth BLE -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-
-    <!-- 2. Izin Bluetooth BLE untuk Mengukur Jarak Antar HP -->
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
@@ -22,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SurveyTopografi">
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -31,6 +30,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Pendaftaran Halaman Anchor (Affifah) -->
+        <activity
+            android:name=".AnchorActivity"
+            android:exported="false" />
+
+        <!-- Pendaftaran Halaman Rover (Izah) -->
+        <activity
+            android:name=".RoverActivity"
+            android:exported="false" />
+
     </application>
 
 </manifest>

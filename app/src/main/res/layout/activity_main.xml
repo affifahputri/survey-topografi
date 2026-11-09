@@ -1,80 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
     android:background="#F8F9FA"
-    android:padding="16dp">
+    android:padding="24dp">
 
-    <LinearLayout
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:text="Survey Topografi BLE"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:textColor="#800020"
+        android:gravity="center"
+        android:layout_marginBottom="8dp" />
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Survey Topografi (GPS + BLE)"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#800020"
-            android:layout_marginBottom="16dp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Pilih peran perangkat ini di lapangan:"
+        android:textSize="14sp"
+        android:textColor="#495057"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
 
-        <!-- Kotak 1: Info Titik Ketinggian & GPS HP Sendiri -->
-        <TextView
-            android:id="@+id/tvMyLocation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:padding="14dp"
-            android:text="Data GPS HP Ini:\nLatitude: -\nLongitude: -\nTitik Ketinggian (Altitude): - mdpl"
-            android:textSize="14sp"
-            android:textColor="#212529"
-            android:layout_marginBottom="12dp" />
+    <!-- Status Sensor/Izin -->
+    <TextView
+        android:id="@+id/tvStatusPermission"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:padding="14dp"
+        android:text="Status Izin Sensor: Mengecek..."
+        android:textSize="13sp"
+        android:textColor="#212529"
+        android:gravity="center"
+        android:layout_marginBottom="24dp" />
 
-        <!-- Tombol 1: Nyalakan BLE -->
-        <Button
-            android:id="@+id/btnToggleSurvey"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#800020"
-            android:text="Mulai Scan &amp; Broadcast BLE"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="12dp" />
+    <!-- Tombol Mode Anchor -->
+    <Button
+        android:id="@+id/btnModeAnchor"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:backgroundTint="#800020"
+        android:text="Mode Anchor (Patokan Diam)"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF"
+        android:layout_marginBottom="16dp" />
 
-        <!-- Kotak 2: Daftar HP Teman yang Terdeteksi via BLE -->
-        <TextView
-            android:id="@+id/tvPeerList"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:padding="14dp"
-            android:text="Perangkat BLE Terdeteksi:\nBelum ada HP sekitar (Butuh minimal 2 HP teman)"
-            android:textSize="14sp"
-            android:textColor="#212529"
-            android:layout_marginBottom="12dp" />
+    <!-- Tombol Mode Rover -->
+    <Button
+        android:id="@+id/btnModeRover"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:backgroundTint="#198754"
+        android:text="Mode Rover (Alat Ukur Keliling)"
+        android:textSize="16sp"
+        android:textColor="#FFFFFF" />
 
-        <!-- Tombol 2: Hitung Trilaterasi -->
-        <Button
-            android:id="@+id/btnCalculate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="#198754"
-            android:text="Hitung Trilaterasi (3 HP)"
-            android:textColor="#FFFFFF"
-            android:layout_marginBottom="12dp" />
-
-        <!-- Kotak 3: Hasil Perhitungan Akhir -->
-        <TextView
-            android:id="@+id/tvResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#E8F5E9"
-            android:padding="14dp"
-            android:text="Hasil Trilaterasi:\n-"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:textColor="#1B5E20" />
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>
