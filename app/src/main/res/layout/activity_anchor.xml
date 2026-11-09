@@ -1,114 +1,179 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F8F9FA"
-    android:padding="20dp">
+    android:background="#F8FAFC"
+    android:fillViewport="true">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Mode Anchor (Titik Patokan)"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:textColor="#800020"
-        android:gravity="center"
-        android:layout_marginBottom="4dp" />
+        android:orientation="vertical"
+        android:padding="20dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Perangkat ini diam di titik patokan dan memancarkan sinyal BLE ke HP Rover."
-        android:textSize="13sp"
-        android:textColor="#6C757D"
-        android:gravity="center"
-        android:layout_marginBottom="20dp" />
+        <!-- Header Card Mode Anchor -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#1E3A8A">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nama / ID Anchor:"
-        android:textStyle="bold"
-        android:textColor="#212529"
-        android:layout_marginBottom="4dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <EditText
-        android:id="@+id/etAnchorId"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FFFFFF"
-        android:hint="Contoh: ANCHOR_1"
-        android:text="ANCHOR_1"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="MODE ANCHOR"
+                    android:textSize="11sp"
+                    android:letterSpacing="0.1"
+                    android:textStyle="bold"
+                    android:textColor="#93C5FD"
+                    android:layout_marginBottom="4dp" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Koordinat Patokan (Latitude, Longitude, Altitude):"
-        android:textStyle="bold"
-        android:textColor="#212529"
-        android:layout_marginBottom="4dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Titik Patokan Tetap"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"
+                    android:layout_marginBottom="6dp" />
 
-    <EditText
-        android:id="@+id/etLatitude"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FFFFFF"
-        android:hint="Latitude (misal: -6.917500)"
-        android:inputType="numberSigned|numberDecimal"
-        android:padding="12dp"
-        android:layout_marginBottom="10dp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Perangkat ini diam di titik referensi dan memancarkan sinyal BLE."
+                    android:textSize="12sp"
+                    android:textColor="#E2E8F0" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-    <EditText
-        android:id="@+id/etLongitude"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FFFFFF"
-        android:hint="Longitude (misal: 107.619100)"
-        android:inputType="numberSigned|numberDecimal"
-        android:padding="12dp"
-        android:layout_marginBottom="10dp" />
+        <!-- Form Card Input -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:strokeWidth="1dp"
+            app:strokeColor="#E2E8F0">
 
-    <EditText
-        android:id="@+id/etAltitude"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="#FFFFFF"
-        android:hint="Ketinggian / Altitude (mdpl)"
-        android:inputType="numberSigned|numberDecimal"
-        android:padding="12dp"
-        android:layout_marginBottom="16dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
 
-    <Button
-        android:id="@+id/btnGetGps"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:backgroundTint="#495057"
-        android:text="Isi Otomatis dari GPS Sekarang"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="12dp" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="ID Perangkat Anchor"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="#64748B"
+                    android:layout_marginBottom="6dp" />
 
-    <Button
-        android:id="@+id/btnStartAdvertising"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:backgroundTint="#800020"
-        android:text="Mulai Siarkan Sinyal (BLE Broadcast)"
-        android:textSize="15sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="16dp" />
+                <EditText
+                    android:id="@+id/etAnchorId"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#F8FAFC"
+                    android:hint="Contoh: ANCHOR_1"
+                    android:text="ANCHOR_1"
+                    android:paddingHorizontal="14dp"
+                    android:textSize="14sp"
+                    android:textColor="#0F172A"
+                    android:layout_marginBottom="14dp" />
 
-    <TextView
-        android:id="@+id/tvBroadcastStatus"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#E9ECEF"
-        android:padding="14dp"
-        android:text="Status Pemancar: Diam (Belum Aktif)"
-        android:textSize="13sp"
-        android:textColor="#212529"
-        android:gravity="center" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Koordinat Patokan (Lat, Lon, Alt)"
+                    android:textStyle="bold"
+                    android:textSize="12sp"
+                    android:textColor="#64748B"
+                    android:layout_marginBottom="6dp" />
 
-</LinearLayout>
+                <EditText
+                    android:id="@+id/etLatitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#F8FAFC"
+                    android:hint="Latitude (misal: -6.917500)"
+                    android:inputType="numberSigned|numberDecimal"
+                    android:paddingHorizontal="14dp"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/etLongitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#F8FAFC"
+                    android:hint="Longitude (misal: 107.619100)"
+                    android:inputType="numberSigned|numberDecimal"
+                    android:paddingHorizontal="14dp"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="8dp" />
+
+                <EditText
+                    android:id="@+id/etAltitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="#F8FAFC"
+                    android:hint="Ketinggian / Altitude (mdpl)"
+                    android:inputType="numberSigned|numberDecimal"
+                    android:paddingHorizontal="14dp"
+                    android:textSize="13sp"
+                    android:layout_marginBottom="14dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnGetGps"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:text="Ambil Koordinat dari GPS Sekarang"
+                    android:textSize="12sp"
+                    android:textAllCaps="false"
+                    app:backgroundTint="#475569"
+                    app:cornerRadius="12dp"
+                    app:elevation="0dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Tombol Aksi Utama -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnStartAdvertising"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Mulai Siarkan Sinyal (BLE Broadcast)"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            app:backgroundTint="#1E3A8A"
+            app:cornerRadius="16dp"
+            app:elevation="0dp"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Status Box -->
+        <TextView
+            android:id="@+id/tvBroadcastStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#E2E8F0"
+            android:padding="16dp"
+            android:text="Status Pemancar: Diam (Belum Aktif)"
+            android:textSize="13sp"
+            android:textColor="#1E293B"
+            android:gravity="center" />
+
+    </LinearLayout>
+</ScrollView>

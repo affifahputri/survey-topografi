@@ -1,64 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:background="#F8F9FA"
-    android:padding="24dp">
+    android:background="#F8FAFC"
+    android:fillViewport="true">
 
-    <TextView
+    <LinearLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Survey Topografi BLE"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        android:textColor="#800020"
-        android:gravity="center"
-        android:layout_marginBottom="8dp" />
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center_horizontal">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Pilih peran perangkat ini di lapangan:"
-        android:textSize="14sp"
-        android:textColor="#495057"
-        android:gravity="center"
-        android:layout_marginBottom="24dp" />
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="32dp" />
 
-    <!-- Status Sensor/Izin -->
-    <TextView
-        android:id="@+id/tvStatusPermission"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FFFFFF"
-        android:padding="14dp"
-        android:text="Status Izin Sensor: Mengecek..."
-        android:textSize="13sp"
-        android:textColor="#212529"
-        android:gravity="center"
-        android:layout_marginBottom="24dp" />
+        <!-- Logo Aplikasi -->
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/logo_topografi" />
 
-    <!-- Tombol Mode Anchor -->
-    <Button
-        android:id="@+id/btnModeAnchor"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:backgroundTint="#800020"
-        android:text="Mode Anchor (Patokan Diam)"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:layout_marginBottom="16dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Survey Topografi"
+            android:textSize="24sp"
+            android:textStyle="bold"
+            android:textColor="#0F172A"
+            android:letterSpacing="-0.02"
+            android:layout_marginBottom="4dp" />
 
-    <!-- Tombol Mode Rover -->
-    <Button
-        android:id="@+id/btnModeRover"
-        android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:backgroundTint="#198754"
-        android:text="Mode Rover (Alat Ukur Keliling)"
-        android:textSize="16sp"
-        android:textColor="#FFFFFF" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sistem Pemetaan &amp; Trilaterasi BLE"
+            android:textSize="13sp"
+            android:textColor="#64748B"
+            android:layout_marginBottom="36dp" />
 
-</LinearLayout>
+        <!-- Card Status dengan Sudut Melengkung Halus -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:strokeWidth="1dp"
+            app:strokeColor="#E2E8F0">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="8dp">
+
+                    <View
+                        android:layout_width="8dp"
+                        android:layout_height="8dp"
+                        android:background="@android:drawable/presence_online"
+                        android:layout_marginRight="8dp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Status Sensor &amp; GPS"
+                        android:textSize="12sp"
+                        android:textStyle="bold"
+                        android:textColor="#94A3B8"
+                        android:letterSpacing="0.05"
+                        android:textAllCaps="true" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvStatusPermission"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Memeriksa kesiapan perangkat..."
+                    android:textSize="13sp"
+                    android:textColor="#334155"
+                    android:lineSpacingExtra="4dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Tombol Menu Utama dengan Sudut Melengkung Modern -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnModeAnchor"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Mode Anchor (Titik Patokan)"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            app:backgroundTint="#1E3A8A"
+            app:cornerRadius="16dp"
+            app:elevation="0dp"
+            android:layout_marginBottom="12dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnModeRover"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:text="Mode Rover (Alat Ukur)"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:textAllCaps="false"
+            app:backgroundTint="#047857"
+            app:cornerRadius="16dp"
+            app:elevation="0dp" />
+
+    </LinearLayout>
+</ScrollView>
