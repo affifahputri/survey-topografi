@@ -30,9 +30,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="MODE ROVER"
+                    android:text="MODE ROVER (3 HP: 2 ANCHOR + 1 ROVER)"
                     android:textSize="11sp"
-                    android:letterSpacing="0.1"
+                    android:letterSpacing="0.08"
                     android:textStyle="bold"
                     android:textColor="#A7F3D0"
                     android:layout_marginBottom="4dp" />
@@ -47,7 +47,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Kotak 1: GPS & Ketinggian HP Rover -->
+        <!-- Kotak 1: Sensor Barometer & GPS -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,7 +63,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="16dp"
-                android:text="GPS Rover (Titik 3):\nLatitude: -\nLongitude: -\nKetinggian (z): - mdpl"
+                android:text="Sensor Rover:\n• Elevasi Barometer (z): - mdpl\n• GPS Referensi Arah: -"
                 android:textSize="13sp"
                 android:textColor="#0F172A"
                 android:lineSpacingExtra="3dp" />
@@ -106,15 +106,15 @@
                 android:lineSpacingExtra="3dp" />
         </com.google.android.material.card.MaterialCardView>
 
-        <!-- Panel Input Koordinat Anchor -->
+        <!-- Koordinat Anchor 1 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Koordinat Patokan Anchor 1 (Lat, Lon):"
+            android:text="Koordinat Patokan Anchor 1 (Otomatis via BLE / Manual):"
             android:textStyle="bold"
             android:textSize="12sp"
             android:textColor="#1E3A8A"
-            android:layout_marginBottom="6dp" />
+            android:layout_marginBottom="4dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -128,6 +128,8 @@
                 android:layout_weight="1"
                 android:background="#FFFFFF"
                 android:hint="Lat A1"
+                android:textColor="#0F172A"
+                android:textColorHint="#94A3B8"
                 android:inputType="numberSigned|numberDecimal"
                 android:padding="10dp"
                 android:textSize="13sp"
@@ -139,19 +141,22 @@
                 android:layout_weight="1"
                 android:background="#FFFFFF"
                 android:hint="Lon A1"
+                android:textColor="#0F172A"
+                android:textColorHint="#94A3B8"
                 android:inputType="numberSigned|numberDecimal"
                 android:padding="10dp"
                 android:textSize="13sp" />
         </LinearLayout>
 
+        <!-- Koordinat Anchor 2 -->
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Koordinat Patokan Anchor 2 (Lat, Lon):"
+            android:text="Koordinat Patokan Anchor 2 (Otomatis via BLE / Manual):"
             android:textStyle="bold"
             android:textSize="12sp"
             android:textColor="#1E3A8A"
-            android:layout_marginBottom="6dp" />
+            android:layout_marginBottom="4dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -165,6 +170,8 @@
                 android:layout_weight="1"
                 android:background="#FFFFFF"
                 android:hint="Lat A2"
+                android:textColor="#0F172A"
+                android:textColorHint="#94A3B8"
                 android:inputType="numberSigned|numberDecimal"
                 android:padding="10dp"
                 android:textSize="13sp"
@@ -176,6 +183,8 @@
                 android:layout_weight="1"
                 android:background="#FFFFFF"
                 android:hint="Lon A2"
+                android:textColor="#0F172A"
+                android:textColorHint="#94A3B8"
                 android:inputType="numberSigned|numberDecimal"
                 android:padding="10dp"
                 android:textSize="13sp" />
@@ -187,17 +196,19 @@
             android:layout_height="44dp"
             android:text="Isi Otomatis Koordinat Sekitar (Simulasi)"
             android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
             android:textAllCaps="false"
             app:backgroundTint="#64748B"
             app:cornerRadius="12dp"
             app:elevation="0dp"
-            android:layout_marginBottom="14dp" />
+            android:layout_marginBottom="10dp" />
 
         <!-- Tombol Hitung Trilaterasi -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnCalculateTrilateration"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="54dp"
             android:text="Hitung Posisi Trilaterasi (x, y, z)"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -206,12 +217,13 @@
             app:backgroundTint="#047857"
             app:cornerRadius="16dp"
             app:elevation="0dp"
-            android:layout_marginBottom="14dp" />
+            android:layout_marginBottom="12dp" />
 
         <!-- Kotak 3: Hasil Trilaterasi -->
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             app:cardCornerRadius="16dp"
             app:cardElevation="0dp"
             app:cardBackgroundColor="#D1E7DD"
@@ -223,10 +235,66 @@
                 android:layout_height="wrap_content"
                 android:padding="16dp"
                 android:text="Hasil Perhitungan Trilaterasi:\n-"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 android:textStyle="bold"
                 android:textColor="#0F5132"
                 android:lineSpacingExtra="4dp" />
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Tombol Simpan Titik & Ekspor CSV -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="12dp">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnSavePoint"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="Simpan Titik"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                app:backgroundTint="#1E3A8A"
+                app:cornerRadius="14dp"
+                android:layout_marginEnd="6dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnExportCsv"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="Ekspor CSV"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:textAllCaps="false"
+                app:backgroundTint="#0F766E"
+                app:cornerRadius="14dp" />
+        </LinearLayout>
+
+        <!-- Daftar Titik Survey Tersimpan -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="16dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="#FFFFFF"
+            app:strokeWidth="1dp"
+            app:strokeColor="#E2E8F0">
+
+            <TextView
+                android:id="@+id/tvSavedPoints"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:text="Daftar Titik Survey Tersimpan (0 titik):\nBelum ada titik yang disimpan."
+                android:textSize="12sp"
+                android:textColor="#334155"
+                android:lineSpacingExtra="3dp" />
         </com.google.android.material.card.MaterialCardView>
 
     </LinearLayout>

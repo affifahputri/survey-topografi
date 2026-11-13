@@ -18,11 +18,10 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import java.nio.charset.StandardCharsets
+import java.nio.ByteBuffer
 import java.util.Locale
 import java.util.UUID
 
-import com.example.surveytopografi.R
 class AnchorActivity : AppCompatActivity() {
 
     private lateinit var etAnchorId: EditText
@@ -33,11 +32,12 @@ class AnchorActivity : AppCompatActivity() {
     private lateinit var btnStartAdvertising: Button
     private lateinit var tvBroadcastStatus: TextView
 
-    private var bluetoothAdapter: BluetoothAdapter? = null
     private var advertiser: BluetoothLeAdvertiser? = null
     private var isAdvertising = false
 
-    private val SERVICE_UUID: UUID = UUID.fromString("0000FEAA-0000-1000-8000-00805F9B34FB")
+    companion object {
+        val SURVEY_UUID: UUID = UUID.fromString("0000CAFE-0000-1000-8000-00805F9B34FB")
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,19 +52,11 @@ class AnchorActivity : AppCompatActivity() {
         tvBroadcastStatus = findViewById(R.id.tvBroadcastStatus)
 
         val bluetoothManager = getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager
-        bluetoothAdapter = bluetoothManager.adapter
-        advertiser = bluetoothAdapter?.bluetoothLeAdvertiser
+        advertiser = bluetoothManager.adapter?.bluetoothLeAdvertiser
 
-        btnGetGps.setOnClickListener {
-            fillLocationFromGps()
-        }
-
+        btnGetGps.setOnClickListener { fillLocationFromGps() }
         btnStartAdvertising.setOnClickListener {
-            if (!isAdvertising) {
-                startAdvertising()
-            } else {
-                stopAdvertising()
-            }
+            if (!isAdvertising) startAdvertising() else stopAdvertising()
         }
     }
 
@@ -73,7 +65,6 @@ class AnchorActivity : AppCompatActivity() {
         val lm = getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val loc: Location? = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
             ?: lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
-
         if (loc != null) {
             etLatitude.setText(String.format(Locale.US, "%.6f", loc.latitude))
             etLongitude.setText(String.format(Locale.US, "%.6f", loc.longitude))
@@ -84,33 +75,23 @@ class AnchorActivity : AppCompatActivity() {
         }
     }
 
-    private val advertiseCallback = object : AdvertiseCallback() {
-        override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
-            super.onStartSuccess(settingsInEffect)
-            isAdvertising = true
-            tvBroadcastStatus.text = "Status Pemancar: Sedang Memancarkan Sinyal BLE ✅"
-            btnStartAdvertising.text = "Hentikan Siaran BLE"
-            btnStartAdvertising.setBackgroundColor(Color.DKGRAY)
-            Toast.makeText(this@AnchorActivity, "Sinyal Anchor aktif terpancar!", Toast.LENGTH_SHORT).show()
-        }
-
-        override fun onStartFailure(errorCode: Int) {
-            super.onStartFailure(errorCode)
-            isAdvertising = false
-            tvBroadcastStatus.text = "Gagal memancarkan sinyal (Kode: $errorCode) ⚠️"
-            Toast.makeText(this@AnchorActivity, "Gagal memancarkan sinyal BLE", Toast.LENGTH_LONG).show()
-        }
-    }
-
     @SuppressLint("MissingPermission")
     private fun startAdvertising() {
         if (advertiser == null) {
-            tvBroadcastStatus.text = "HP / Emulator tidak mendukung BLE Advertising!"
-            Toast.makeText(this, "Fitur BLE Advertiser tidak didukung di perangkat ini.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, "Fitur BLE Advertiser tidak didukung perangkat ini.", Toast.LENGTH_LONG).show()
             return
         }
 
-        val anchorName = etAnchorId.text.toString().trim().ifEmpty { "ANCHOR" }
+        val idStr = etAnchorId.text.toString().trim()
+        val anchorNum: Byte = if (idStr.endsWith("2")) 2 else 1
+        val lat = etLatitude.text.toString().toDoubleOrNull()
+        val lon = etLongitude.text.toString().toDoubleOrNull()
+        val alt = etAltitude.text.toString().toDoubleOrNull() ?: 800.0
+
+        if (lat == null || lon == null) {
+            Toast.makeText(this, "Isi Latitude & Longitude terlebih dahulu!", Toast.LENGTH_SHORT).show()
+            return
+        }
 
         val settings = AdvertiseSettings.Builder()
             .setAdvertiseMode(AdvertiseSettings.ADVERTISE_MODE_LOW_LATENCY)
@@ -118,10 +99,17 @@ class AnchorActivity : AppCompatActivity() {
             .setConnectable(false)
             .build()
 
+        // Kemas data 13-byte: [ID][LatInt][LonInt][AltFloat]
+        val payload = ByteBuffer.allocate(13)
+            .put(anchorNum)
+            .putInt((lat * 1e6).toInt())
+            .putInt((lon * 1e6).toInt())
+            .putFloat(alt.toFloat())
+            .array()
+
         val data = AdvertiseData.Builder()
             .setIncludeDeviceName(false)
-            .addServiceUuid(ParcelUuid(SERVICE_UUID))
-            .addServiceData(ParcelUuid(SERVICE_UUID), anchorName.toByteArray(StandardCharsets.UTF_8))
+            .addServiceData(ParcelUuid(SURVEY_UUID), payload)
             .build()
 
         advertiser?.startAdvertising(settings, data, advertiseCallback)
@@ -133,13 +121,27 @@ class AnchorActivity : AppCompatActivity() {
         isAdvertising = false
         tvBroadcastStatus.text = "Status Pemancar: Diam (Dimatikan)"
         btnStartAdvertising.text = "Mulai Siarkan Sinyal (BLE Broadcast)"
-        btnStartAdvertising.setBackgroundColor(Color.parseColor("#800020"))
+        btnStartAdvertising.setBackgroundColor(Color.parseColor("#1E3A8A"))
+    }
+
+    private val advertiseCallback = object : AdvertiseCallback() {
+        override fun onStartSuccess(settingsInEffect: AdvertiseSettings?) {
+            super.onStartSuccess(settingsInEffect)
+            isAdvertising = true
+            tvBroadcastStatus.text = "Status Pemancar: AKTIF\nMemancarkan koordinat via BLE..."
+            btnStartAdvertising.text = "Hentikan Siaran BLE"
+            btnStartAdvertising.setBackgroundColor(Color.DKGRAY)
+        }
+
+        override fun onStartFailure(errorCode: Int) {
+            super.onStartFailure(errorCode)
+            isAdvertising = false
+            tvBroadcastStatus.text = "Gagal memancarkan sinyal (Kode: $errorCode)"
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (isAdvertising) {
-            stopAdvertising()
-        }
+        if (isAdvertising) stopAdvertising()
     }
 }

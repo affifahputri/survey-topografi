@@ -1,8 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.SurveyTopografi" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    <!-- Base application theme (Dikunci ke Light Mode agar desain konsisten) -->
+    <style name="Base.Theme.SurveyTopografi" parent="Theme.Material3.Light.NoActionBar">
+        <!-- Warna Utama (Navy) & Sekunder (Forest Green) -->
+        <item name="colorPrimary">#1E3A8A</item>
+        <item name="colorSecondary">#047857</item>
+
+        <!-- Warna Status Bar (Bagian atas layar tempat jam & baterai) -->
+        <item name="android:statusBarColor">#1E3A8A</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
     <style name="Theme.SurveyTopografi" parent="Base.Theme.SurveyTopografi" />
