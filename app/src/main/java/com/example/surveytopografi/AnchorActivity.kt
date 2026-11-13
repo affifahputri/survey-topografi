@@ -77,6 +77,12 @@ class AnchorActivity : AppCompatActivity() {
 
     @SuppressLint("MissingPermission")
     private fun startAdvertising() {
+        val adapter = (getSystemService(Context.BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        if (adapter?.isEnabled != true) {
+            Toast.makeText(this, "Aktifkan Bluetooth dulu.", Toast.LENGTH_LONG).show()
+            return
+        }
+        advertiser = adapter.bluetoothLeAdvertiser
         if (advertiser == null) {
             Toast.makeText(this, "Fitur BLE Advertiser tidak didukung perangkat ini.", Toast.LENGTH_LONG).show()
             return
@@ -109,6 +115,7 @@ class AnchorActivity : AppCompatActivity() {
 
         val data = AdvertiseData.Builder()
             .setIncludeDeviceName(false)
+            .addServiceUuid(ParcelUuid(SURVEY_UUID))   // wajib: agar lolos ScanFilter di Rover
             .addServiceData(ParcelUuid(SURVEY_UUID), payload)
             .build()
 
