@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.bluetooth.BluetoothManager
 import android.bluetooth.le.BluetoothLeScanner
 import android.bluetooth.le.ScanCallback
-import android.bluetooth.le.ScanFilter
 import android.bluetooth.le.ScanResult
 import android.bluetooth.le.ScanSettings
 import android.location.Location
@@ -186,18 +185,19 @@ class RoverActivity : AppCompatActivity() {
     }
 
     private fun startBleScan() {
-        if (bleScanner == null) {
+        val adapter = (getSystemService(BLUETOOTH_SERVICE) as BluetoothManager).adapter
+        if (adapter?.isEnabled != true) {
             Toast.makeText(this, "Bluetooth belum aktif!", Toast.LENGTH_SHORT).show()
             return
         }
-        val filter = ScanFilter.Builder()
-            .setServiceUuid(ParcelUuid(AnchorActivity.SURVEY_UUID))
-            .build()
+        bleScanner = adapter.bluetoothLeScanner
         val settings = ScanSettings.Builder()
             .setScanMode(ScanSettings.SCAN_MODE_LOW_LATENCY)
             .build()
-        bleScanner?.startScan(listOf(filter), settings, scanCallback)
+        // Tanpa filter hardware: penyaringan Anchor dilakukan di scanCallback lewat service data
+        bleScanner?.startScan(null, settings, scanCallback)
         isScanning = true
+        tvDetectedAnchors.text = "Anchor BLE Terdeteksi:\nMemindai... (belum ada Anchor)"
         btnScanBle.text = "Hentikan Scan BLE"
     }
 
@@ -209,13 +209,17 @@ class RoverActivity : AppCompatActivity() {
 
     private val scanCallback = object : ScanCallback() {
         override fun onScanResult(callbackType: Int, result: ScanResult) {
+            // Hanya proses paket yang membawa service data Anchor kita
+            val serviceData = result.scanRecord?.getServiceData(ParcelUuid(AnchorActivity.SURVEY_UUID))
+                ?: return
+            if (serviceData.size < 13) return
+
             val rssi = result.rssi
             val deviceKey = result.device?.address ?: "ANCHOR"
             val smoothedRssi = Trilateration.getSmoothedRssi(deviceKey, rssi)
             val dist = Trilateration.rssiToDistance(smoothedRssi)
 
-            val serviceData = result.scanRecord?.getServiceData(ParcelUuid(AnchorActivity.SURVEY_UUID))
-            if (serviceData != null && serviceData.size >= 13) {
+            run {
                 val buffer = ByteBuffer.wrap(serviceData)
                 val anchorNum = buffer.get().toInt()
                 val lat = buffer.int / 1e6
