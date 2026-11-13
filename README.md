@@ -20,4 +20,5 @@ Aplikasi Android untuk pemetaan topografi 3D `(X, Y, Z)` menggunakan metode **Tr
 
 ## Kontributor
 - Affifah Putri
+- Al Yasmin Assa'diyah
 - Zahra Nur'azijah Lutfiani
